@@ -1,0 +1,39 @@
+package hrs.services;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class MenuAndUserChoice extends ArrayList<String> {
+
+    public MenuAndUserChoice() {
+        super();
+    }
+
+    public MenuAndUserChoice(String[] items) {
+        super();
+        for (String item : items) {
+            this.add(item);
+        }
+    }
+
+    public int getUserChoice() {
+        boolean check = false;
+        int choice = 0;
+        do {
+            try {
+                Scanner sc = new Scanner(System.in);
+                for (int i = 0; i < this.size(); i++) {
+                    System.out.format("%d-%s\n", i + 1, this.get(i));
+                }
+                System.out.println("Others-Quit");
+                System.out.print("Select : ");
+                choice = sc.nextInt();
+                check = true;
+            } catch (Exception e) {
+
+            }
+        } while (check == false);
+        return choice;
+    }
+}
+    
