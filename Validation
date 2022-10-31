@@ -1,0 +1,80 @@
+package hrs.utils;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.util.Scanner;
+
+public class Validation {
+
+    public static Scanner SC = new Scanner(System.in);
+
+    public static boolean validStr(String str, String regEx) {
+        if (str.matches(regEx)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static String readPattern(String message, String pattern) {
+        String input = "";
+        boolean valid;
+        do {
+            System.out.print(message + ": ");
+            input = SC.nextLine().trim();
+            valid = validStr(input, pattern);
+        } while (!valid);
+        return input;
+    }
+
+    public static boolean isValidDate(String birthDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalDate localDate = LocalDate.parse(birthDate, formatter);
+            birthDate = formatter.format(localDate);
+        } catch (DateTimeParseException e) {
+        return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidPhone(String phone) {
+        if ((phone.length() >= 7) && (phone.matches("[0-9]{7,20}"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean isValidEmail(String email) {
+        if (email == null) {
+            return (false);
+        }
+
+        if (email.matches("^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                + "A-Z]{2,7}$")) {
+            return (true);
+        } else {
+            return (false);
+        }
+    }
+
+    public static boolean validName(String name) {
+        String specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~0123456789";
+        String str[] = name.split("");
+
+        for (int i = 0; i < str.length; i++) {
+            if (!specialCharacters.contains(str[i])) {
+                return true;
+                //break;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+}
