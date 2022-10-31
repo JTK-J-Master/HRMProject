@@ -1,39 +1,46 @@
-package hrs.services;
+package hrs.main;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import hrs.services.MenuAndUserChoice;
+import hrs.services.EmployeeService;
 
-public class MenuAndUserChoice extends ArrayList<String> {
+public class EmployeeManagement {
 
-    public MenuAndUserChoice() {
-        super();
-    }
-
-    public MenuAndUserChoice(String[] items) {
-        super();
-        for (String item : items) {
-            this.add(item);
-        }
-    }
-
-    public int getUserChoice() {
-        boolean check = false;
+    public static void main(String[] args) {
         int choice = 0;
-        do {
-            try {
-                Scanner sc = new Scanner(System.in);
-                for (int i = 0; i < this.size(); i++) {
-                    System.out.format("%d-%s\n", i + 1, this.get(i));
-                }
-                System.out.println("Others-Quit");
-                System.out.print("Select : ");
-                choice = sc.nextInt();
-                check = true;
-            } catch (Exception e) {
 
+        String[] options = {"Add an employee", "Display employees",
+            "Classify employees", "Search employee( by department or emp's name)",
+            "Update an employee", "Delete an employee", "Report"};
+        MenuAndUserChoice menu = new MenuAndUserChoice(options);
+        EmployeeService emp = new EmployeeService();
+        do {
+            choice = menu.getUserChoice();
+            switch (choice) {
+                case 1:
+                    emp.addEmployee();
+                    break;
+                case 2:
+                    emp.displayEmployeesByOrder();
+                    break;
+                case 3:
+                    emp.ClassifyEmployees();
+                    break;
+                case 4:
+                    emp.updateEmployeeBySSN();
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+
+                    break;
+                    
             }
-        } while (check == false);
-        return choice;
+        } while (choice > 0 && choice <= 7);
     }
 }
+
     
